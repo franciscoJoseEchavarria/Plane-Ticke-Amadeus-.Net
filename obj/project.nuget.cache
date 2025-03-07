@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "LKWT4PtRJOI=",
+  "success": true,
+  "projectFilePath": "D:\\Camilo\\1-NODO\\go4it-backend\\AmadeusAPI\\AmadeusAPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\PERSONAL\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.1\\microsoft.aspnetcore.openapi.9.0.1.nupkg.sha512",
+    "C:\\Users\\PERSONAL\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
