@@ -6,11 +6,11 @@ namespace AmadeusAPI.Controller;
 
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class User_answersController : ControllerBase
     {
         private readonly IUserRepository _repository;
 
-        public UserController(IUserRepository repository)
+        public User_answersController(IUserRepository repository)
         {
             _repository = repository;
         }

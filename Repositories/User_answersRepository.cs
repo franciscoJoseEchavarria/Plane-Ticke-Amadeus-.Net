@@ -1,17 +1,15 @@
 using AmadeusAPI.Interfaces;
-using AmadeusAPI.Models;
 using AmadeusAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using AmadeusAPI.Models;
 
+namespace AmadeusAPI.Models;
 
-
-namespace AmadeusAPI.Repositories;
-
-    public class UserRepository : IUserRepository
+    public class User_answersRepository : IUserRepository
     {
         private readonly AmadeusAPIDbContext _context;
 
-        public UserRepository(AmadeusAPIDbContext context)
+        public User_answersRepository(AmadeusAPIDbContext context)
         {
             _context = context;
         }
