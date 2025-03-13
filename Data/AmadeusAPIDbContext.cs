@@ -12,6 +12,9 @@ namespace AmadeusAPI.Data
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<User_answers> User_answers { get; set; }
+        public DbSet<User_answers> User_answers { get; set;}
+
+        public DbSet<CityModel> City { get; set; }
+
     }
 }
