@@ -2,8 +2,12 @@ using AmadeusAPI.Data;
 using AmadeusAPI.Interfaces;
 using AmadeusAPI.Models;
 using AmadeusAPI.Repositories;
-using AmadeusAPI.services;
+using AmadeusAPI.Services;
+
 using Microsoft.EntityFrameworkCore;
+
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +17,11 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserRepository, User_answersRepository>();  
+
+
+builder.Services.AddScoped<ICityRepository, CityRepository>();
+builder.Services.AddScoped<ICityService, CityService>();
+
 
 builder.Services.AddEndpointsApiExplorer();
 
