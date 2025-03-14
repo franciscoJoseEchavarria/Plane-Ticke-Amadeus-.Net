@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace go4it_amadeus.Models
+namespace AmadeusAPI.Models
 {
     public class Destination
     {

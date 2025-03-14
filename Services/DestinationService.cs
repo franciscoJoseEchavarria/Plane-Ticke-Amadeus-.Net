@@ -2,12 +2,13 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using AmadeusAPI.Interfaces;
 using AmadeusAPI.Models;
 using AmadeusAPI.Repositories;
 
 namespace AmadeusAPI.Services
 {
-    public class DestinationService
+    public class DestinationService : IDestinationService
     {
         private readonly DestinationRepository _destinationRepository;
 
@@ -21,17 +22,14 @@ namespace AmadeusAPI.Services
             return await _destinationRepository.GetDestinationById(id);
         }
 
-        public string GetHashedId(int id)
+        public string GetHashedArray(string[] array)
         {
-            using (SHA256 sha256Hash = SHA256.Create())
+            using (var sha256 = SHA256.Create())
             {
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(id.ToString()));
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
+                var concatenatedString = string.Join(",", array);
+                var bytes = Encoding.UTF8.GetBytes(concatenatedString);
+                var hash = sha256.ComputeHash(bytes);
+                return Convert.ToBase64String(hash);
             }
         }
     }
