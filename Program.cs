@@ -6,9 +6,6 @@ using AmadeusAPI.Services;
 
 using Microsoft.EntityFrameworkCore;
 
-
-
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -22,6 +19,8 @@ builder.Services.AddScoped<IUserRepository, User_answersRepository>();
 builder.Services.AddScoped<ICityRepository, CityRepository>();
 builder.Services.AddScoped<ICityService, CityService>();
 
+builder.Services.AddScoped<IDestinationRepository, DestinationRepository>();
+builder.Services.AddScoped<IDestinationService, DestinationService>();
 
 builder.Services.AddEndpointsApiExplorer();
 
