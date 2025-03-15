@@ -9,5 +9,6 @@ public interface IDestinationService
     // Task<Destination> AddDestination(Destination destination);
     // Task<Destination> UpdateDestination(Destination destination);
     // Task<Destination> DeleteDestination(int id);
-    string GetHashedArray(string[] array);
+    string GetHashedArray(string[] array);    
+    Task<(int firstCityId, int secondCityId)> GetCityIdsByHash(string hash);
 }

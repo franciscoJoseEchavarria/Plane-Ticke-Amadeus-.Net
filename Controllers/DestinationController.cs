@@ -16,10 +16,11 @@ namespace AmadeusAPI.Controllers
         }
 
         [HttpPost("hash")]
-        public IActionResult HashArray([FromBody] string[] array)
+        public async Task<IActionResult> HashArray([FromBody] string[] array)
         {
-            var hashedArray = _destinationService.GetHashedArray(array);
-            return Ok(hashedArray);
+            var hash = _destinationService.GetHashedArray(array);
+            (int firstCityId, int secondCityId) = await _destinationService.GetCityIdsByHash(hash);
+            return Ok(new { firstCityId, secondCityId });
         }
     }
 }

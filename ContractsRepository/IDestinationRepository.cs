@@ -10,4 +10,5 @@ public interface IDestinationRepository
     Task<Destination> AddDestination(Destination destination);
     Task<Destination> UpdateDestination(Destination destination);
     Task<Destination> DeleteDestination(int id);
+    Task<(int firstCityId, int secondCityId)> GetCityIdsByHash(string hash);
 }

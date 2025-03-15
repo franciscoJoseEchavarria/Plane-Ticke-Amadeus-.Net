@@ -32,5 +32,10 @@ namespace AmadeusAPI.Services
                 return Convert.ToBase64String(hash);
             }
         }
+
+        public async Task<(int firstCityId, int secondCityId)> GetCityIdsByHash(string hash)
+        {
+            return await _destinationRepository.GetCityIdsByHash(hash);
+        }
     }
 }

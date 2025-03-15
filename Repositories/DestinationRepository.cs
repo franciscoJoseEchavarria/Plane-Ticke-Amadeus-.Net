@@ -49,4 +49,19 @@ public class DestinationRepository : IDestinationRepository
         }
         return null;
     }
+
+    public async Task<(int firstCityId, int secondCityId)> GetCityIdsByHash(string hash)
+    {
+        var cities = await _context.City
+            .Where(c => c.Hash == hash)
+            .Select(c => c.Id)
+            .ToListAsync();
+
+        if (cities.Count() != 2)
+        {
+            throw new Exception("There should be exactly two cities with the given hash.");
+        }
+
+        return (cities[0], cities[1]);
+    }
 }
