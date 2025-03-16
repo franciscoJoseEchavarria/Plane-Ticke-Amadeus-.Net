@@ -63,7 +63,12 @@ namespace  AmadeusAPI.services;
     {
         try
         {
-            return await _userRepository.DeleteUser(id);
+            var user = await _userRepository.DeleteUser(id);
+            if (user == null)
+            {
+                throw new Exception("user not deleted");
+            }
+            return user;
         }
         catch (Exception ex)
         {

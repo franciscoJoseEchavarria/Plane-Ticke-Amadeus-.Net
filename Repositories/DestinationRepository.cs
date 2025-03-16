@@ -21,7 +21,12 @@ public class DestinationRepository : IDestinationRepository
 
     public async Task<Destination> GetDestinationById(int id)
     {
-        return await _context.Destinations.FindAsync(id);
+        var destination = await _context.Destinations.FindAsync(id);
+        if (destination == null)
+        {
+            throw new Exception($"Destination with id {id} not found.");
+        }
+        return destination;
     }
 
     public async Task<Destination> AddDestination(Destination destination)
@@ -38,7 +43,7 @@ public class DestinationRepository : IDestinationRepository
         return destination;
     }
 
-    public async Task<Destination> DeleteDestination(int id)
+    public async Task<Destination?> DeleteDestination(int id)
     {
         var destination = await _context.Destinations.FindAsync(id);
         if (destination != null)
@@ -50,11 +55,10 @@ public class DestinationRepository : IDestinationRepository
         return null;
     }
 
-    public async Task<(int firstCityId, int secondCityId)> GetCityIdsByHash(string hash)
+    public async Task<(CityModel firstCity, CityModel secondCity)> GetCitiesByHash(string hash)
     {
         var cities = await _context.City
-            .Where(c => c.Hash == hash)
-            .Select(c => c.Id)
+            .Where(c => c.CityHash == hash)
             .ToListAsync();
 
         if (cities.Count() != 2)

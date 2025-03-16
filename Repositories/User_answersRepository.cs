@@ -16,7 +16,12 @@ namespace AmadeusAPI.Models;
 
         public async Task<User> GetUser(int id)
         {
-            return await _context.Users.FindAsync(id);
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                throw new KeyNotFoundException($"User with id {id} not found.");
+            }
+            return user;
         }
 
         public async Task<IEnumerable<User>> GetUsers()
@@ -38,7 +43,7 @@ namespace AmadeusAPI.Models;
             return user;
         }
 
-        public async Task<User> DeleteUser(int id)
+        public async Task<User?> DeleteUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null)
