@@ -55,7 +55,7 @@ namespace AmadeusAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("City", (string)null);
+                    b.ToTable("City");
                 });
 
             modelBuilder.Entity("AmadeusAPI.Models.Destination", b =>
@@ -79,7 +79,7 @@ namespace AmadeusAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Destinations", (string)null);
+                    b.ToTable("Destinations");
                 });
 
             modelBuilder.Entity("AmadeusAPI.Models.Question", b =>
@@ -103,7 +103,7 @@ namespace AmadeusAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Question", (string)null);
+                    b.ToTable("Question");
                 });
 
             modelBuilder.Entity("AmadeusAPI.Models.QuestionOption", b =>
@@ -121,14 +121,13 @@ namespace AmadeusAPI.Migrations
 
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("text");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("question_option", (string)null);
+                    b.ToTable("question_option");
                 });
 
             modelBuilder.Entity("AmadeusAPI.Models.User", b =>
@@ -148,7 +147,7 @@ namespace AmadeusAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("AmadeusAPI.Models.User_answers", b =>
@@ -173,7 +172,7 @@ namespace AmadeusAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User_answers", (string)null);
+                    b.ToTable("User_answers");
                 });
 
             modelBuilder.Entity("AmadeusAPI.Models.QuestionOption", b =>

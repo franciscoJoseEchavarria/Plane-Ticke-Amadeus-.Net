@@ -46,6 +46,20 @@ namespace AmadeusAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Question",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    category = table.Column<string>(type: "text", nullable: false),
+                    text = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Question", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "User_answers",
                 columns: table => new
                 {
@@ -74,6 +88,31 @@ namespace AmadeusAPI.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "question_option",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    question_id = table.Column<int>(type: "integer", nullable: false),
+                    Text = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_question_option", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_question_option_Question_question_id",
+                        column: x => x.question_id,
+                        principalTable: "Question",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_question_option_question_id",
+                table: "question_option",
+                column: "question_id");
         }
 
         /// <inheritdoc />
@@ -86,10 +125,16 @@ namespace AmadeusAPI.Migrations
                 name: "Destinations");
 
             migrationBuilder.DropTable(
+                name: "question_option");
+
+            migrationBuilder.DropTable(
                 name: "User_answers");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Question");
         }
     }
 }
