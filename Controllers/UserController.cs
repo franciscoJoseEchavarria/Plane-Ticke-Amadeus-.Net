@@ -8,23 +8,23 @@ namespace AmadeusAPI.Controller;
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserRepository _repository;
+        private readonly IUserService _userService;
 
-        public UserController(IUserRepository repository)
+        public UserController(IUserService userService)
         {
-            _repository = repository;
+            _userService = userService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return Ok(await _repository.GetUsers());
+            return Ok(await _userService.GetUsers());
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-            var user = await _repository.GetUser(id);
+            var user = await _userService.GetUser(id);
             if (user == null)
             {
                 return NotFound();
@@ -36,7 +36,7 @@ namespace AmadeusAPI.Controller;
         [HttpPost]
         public async Task<ActionResult<User>> AddUser(User user)
         {
-            await _repository.AddUser(user);
+            await _userService.AddUser(user);
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
@@ -48,7 +48,7 @@ namespace AmadeusAPI.Controller;
                 return BadRequest();
             }
 
-            await _repository.UpdateUser(user);
+            await _userService.UpdateUser(user);
 
             return NoContent();
         }
@@ -56,7 +56,7 @@ namespace AmadeusAPI.Controller;
         [HttpDelete("{id}")]
         public async Task<ActionResult<User>> DeleteUser(int id)
         {
-            var user = await _repository.DeleteUser(id);
+            var user = await _userService.DeleteUser(id);
             if (user == null)
             {
                 return NotFound();
