@@ -6,7 +6,7 @@ namespace AmadeusAPI.Models;
     {
         [Key]
         public int Id { get; set; }
-        public string Full_name { get; set; }
+        public string? Full_name { get; set; }
         [Required]
-        public string Email { get; set; }
+        public string? Email { get; set; }
     }

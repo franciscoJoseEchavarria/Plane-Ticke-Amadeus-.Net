@@ -1,8 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using AmadeusAPI.Models; // Descomentar esta línea cuando se creen los modelos de User y User_answers 
 
-// using AmadeusAPI.Models; // Cuando se creen los modelos, descomentar esta línea
-
 namespace AmadeusAPI.Data
 {
     public class AmadeusAPIDbContext : DbContext
@@ -13,7 +11,6 @@ namespace AmadeusAPI.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<User_answers> User_answers { get; set;}
-
         public DbSet<CityModel> City { get; set; }
         public DbSet<Question> Question { get; set; }
         public DbSet<QuestionOption> QuestionOption { get; set; }
@@ -37,6 +34,6 @@ namespace AmadeusAPI.Data
                 .HasForeignKey(qo => qo.QuestionId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
-
+        public DbSet<Destination> Destinations { get; set; }
     }
 }

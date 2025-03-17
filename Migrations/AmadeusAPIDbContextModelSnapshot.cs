@@ -16,7 +16,7 @@ namespace AmadeusAPI.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.2")
+                .HasAnnotation("ProductVersion", "9.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -29,29 +29,57 @@ namespace AmadeusAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("idioma")
+                    b.Property<string>("CityHash")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CityName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("img")
+                    b.Property<string>("Continent")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Country")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("lugarImperdible")
+                    b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("nombreDestino")
-                        .IsRequired()
+                    b.Property<string>("Language")
                         .HasColumnType("text");
 
-                    b.Property<string>("pais")
-                        .IsRequired()
+                    b.Property<string>("UnmissablePlace")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("City");
+                    b.ToTable("City", (string)null);
+                });
+
+            modelBuilder.Entity("AmadeusAPI.Models.Destination", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Combination")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<int>("FirstCityId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SecondCityId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Destinations", (string)null);
                 });
 
             modelBuilder.Entity("AmadeusAPI.Models.Question", b =>
@@ -116,12 +144,11 @@ namespace AmadeusAPI.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Full_name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("AmadeusAPI.Models.User_answers", b =>
@@ -146,7 +173,7 @@ namespace AmadeusAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User_answers");
+                    b.ToTable("User_answers", (string)null);
                 });
 
             modelBuilder.Entity("AmadeusAPI.Models.QuestionOption", b =>

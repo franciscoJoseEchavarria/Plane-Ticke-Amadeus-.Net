@@ -23,7 +23,7 @@ namespace AmadeusAPI.Repositories;
 
         public async Task<CityModel> GetCityById(int id)
         {
-            return await _context.City.FindAsync(id);
+            return await _context.City.FindAsync(id) ?? throw new KeyNotFoundException($"City with id {id} not found.");
         }
 
         public async Task AddCity(CityModel city)
@@ -46,7 +46,7 @@ namespace AmadeusAPI.Repositories;
                 _context.City.Remove(city);
                 await _context.SaveChangesAsync();
             }
-            return city;
+            return city ?? throw new KeyNotFoundException($"City with id {id} not found.");
         }
     }
 

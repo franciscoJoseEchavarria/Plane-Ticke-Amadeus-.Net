@@ -7,12 +7,13 @@ namespace AmadeusAPI.Models;
     [Key]
     public int Id { get; set; }
     [Required]
-    public string nombreDestino { get; set; }
+    public string? CityName { get; set; }
     [Required]
-    public string img { get; set; }
+    public string? Image { get; set; }
     [Required]
-    public string pais { get; set; }
-
-    public string idioma { get; set; }
-    public string lugarImperdible { get; set; }
+    public string? Country { get; set; }
+    public string? Language { get; set; }
+    public string? UnmissablePlace { get; set; }
+    public string? Continent { get; set; }
+    public string? CityHash  { get; set; }
 }
