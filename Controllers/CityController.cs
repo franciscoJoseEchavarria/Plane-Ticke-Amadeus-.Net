@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using AmadeusAPI.Interfaces;
 using AmadeusAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace AmadeusAPI.Controller
@@ -19,12 +20,12 @@ namespace AmadeusAPI.Controller
         }
       
 
-        [HttpGet]
+        [HttpGet("protectedpath")]
         public async Task<IEnumerable<CityModel>> GetCityAlluser()
         {
             return await _cityService.GetCityAlluser();
         }
-
+        //preguntar al profe que en esta parte aun con el tocken no me deja acceder a la informacion
         [HttpGet("{id}")]
         public async Task<ActionResult<CityModel>> GetCityById(int id)
         {

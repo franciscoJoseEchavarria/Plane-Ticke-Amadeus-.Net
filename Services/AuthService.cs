@@ -28,7 +28,7 @@ namespace AmadeusAPI.Services
                     issuer: _config["Jwt:Issuer"],
                     audience: _config["Jwt:Audience"],
                     claims,
-                    expires: DateTime.Now.AddMinutes(30),
+                    expires: DateTime.UtcNow.AddMinutes(30),
                     signingCredentials: creds
                 );
             return new JwtSecurityTokenHandler().WriteToken(token);
