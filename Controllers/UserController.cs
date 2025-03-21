@@ -16,9 +16,9 @@ namespace AmadeusAPI.Controller;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<IEnumerable<User>> GetUsers()
         {
-            return Ok(await _userService.GetUsers());
+            return await _userService.GetUsers();
         }
 
         [HttpGet("{id}")]

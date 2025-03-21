@@ -15,8 +15,9 @@ namespace AmadeusAPI.Models;
         [ForeignKey("Question")]
         [Column("question_id")]
         public int QuestionId { get; set; }
-
-        public string Text { get; set; }
+        public string? Text { get; set; }
+        public string? Description { get; set; }
+        public string? Image { get; set; }
         [JsonIgnore] 
-        public Question Question { get; set; }
+        public Question? Question { get; set; }
     }

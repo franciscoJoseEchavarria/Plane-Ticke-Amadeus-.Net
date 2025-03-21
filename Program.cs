@@ -17,7 +17,10 @@ builder.Services.AddControllers().AddJsonOptions(options =>
         options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
         options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
     });
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+
 builder.Services.AddScoped<IUserRepository, User_answersRepository>();
 
 builder.Services.AddScoped<ICityRepository, CityRepository>();
