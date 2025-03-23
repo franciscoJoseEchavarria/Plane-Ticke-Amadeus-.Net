@@ -16,8 +16,12 @@ public class CityModel : NewBaseType
     public string? Image { get; set; }
     [Required]
     public string? Country { get; set; }
+    [Required]
     public string? Language { get; set; }
+    [Required]
     public string? UnmissablePlace { get; set; }
+    [Required]
     public string? Continent { get; set; }
+    [Required]
     public string? CityHash  { get; set; }
 }
