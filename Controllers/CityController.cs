@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using AmadeusAPI.Interfaces;
 using AmadeusAPI.Models;
 
-
 namespace AmadeusAPI.Controller
 {
     [Route("api/[controller]")]
@@ -12,12 +11,10 @@ namespace AmadeusAPI.Controller
         public class CityController : ControllerBase
     {
         private readonly ICityService _cityService;
-
         public CityController(ICityService cityService)
         {
             _cityService = cityService;
         }
-      
 
         [HttpGet]
         public async Task<IEnumerable<CityModel>> GetCityAlluser()

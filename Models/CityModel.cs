@@ -2,12 +2,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AmadeusAPI.Models;
 
-    public class CityModel
+public class NewBaseType
+{
+    [Required]
+    public string? CityName { get; set; }
+}
+
+public class CityModel : NewBaseType
 {
     [Key]
     public int Id { get; set; }
-    [Required]
-    public string? CityName { get; set; }
     [Required]
     public string? Image { get; set; }
     [Required]

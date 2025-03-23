@@ -31,6 +31,7 @@ namespace AmadeusAPI.Controllers
             }
         }
 
+        
         [HttpPost("hash")]
         public async Task<IActionResult> HashArray([FromBody] string[] array)
         {

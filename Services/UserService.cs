@@ -1,14 +1,12 @@
 using AmadeusAPI.Interfaces;
 using AmadeusAPI.Models;
-
 namespace  AmadeusAPI.Services;
     public class UserService:IUserService
     {
         private readonly IUserRepository _userRepository;
-
         public UserService(IUserRepository userRepository)
         {
-            _userRepository = userRepository;
+            _userRepository = userRepository;       
         }
 
     public async Task<IEnumerable<User>> GetUsers()
@@ -20,6 +18,19 @@ namespace  AmadeusAPI.Services;
         catch (Exception ex)
         {
             throw new Exception("no users found", ex);
+        }
+    }
+
+
+    public async Task <User> GetUser(string email)
+    {
+        try
+        {
+            return await _userRepository.GetUser(email);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("user not found", ex);
         }
     }
     

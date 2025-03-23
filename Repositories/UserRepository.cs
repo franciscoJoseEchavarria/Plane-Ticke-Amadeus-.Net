@@ -16,6 +16,16 @@ namespace AmadeusAPI.Repositories;
             _context = context;
         }
 
+
+        public async Task <User> GetUser(String email)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null)
+            {
+                throw new KeyNotFoundException($"User with email {email} not found.");
+            }
+            return user;
+        }
         public async Task<User> GetUser(int id)
         {
             var user = await _context.Users.FindAsync(id);

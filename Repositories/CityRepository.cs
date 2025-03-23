@@ -27,6 +27,7 @@ namespace AmadeusAPI.Repositories;
         }
 
         public async Task AddCity(CityModel city)
+        
         {
             await _context.City.AddAsync(city);
             await _context.SaveChangesAsync();
