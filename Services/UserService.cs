@@ -28,6 +28,12 @@ namespace  AmadeusAPI.Services;
         {
             return await _userRepository.GetUser(email);
         }
+
+        catch (KeyNotFoundException)
+        {
+            return null;
+        }
+        
         catch (Exception ex)
         {
             throw new Exception("user not found", ex);
@@ -39,6 +45,11 @@ namespace  AmadeusAPI.Services;
         try
         {
             return await _userRepository.GetUser(id);
+        }
+
+        catch (KeyNotFoundException)
+        {
+            return null;
         }
         catch (Exception ex)
         {

@@ -103,9 +103,14 @@ namespace AmadeusAPI.Controller{
                     "Por favor, utilice otro correo."
                 );
                 return BadRequest(errorResponse);
+            } 
+            else if(existingUser == null)
+            {
+                await _userService.AddUser(user);
+                return CreatedAtAction("GetUser", new { id = user.Id }, user);
             }
-            await _userService.AddUser(user);
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+
+            return BadRequest("Unexpected error occurred.");
         }
 
         [HttpPut("{id}")]
