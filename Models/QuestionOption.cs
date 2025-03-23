@@ -8,8 +8,8 @@ namespace AmadeusAPI.Models;
     [Table("question_option")] 
     public class QuestionOption
     {
-        [Key]
-        [Column("id")]
+            [Key]
+            [Column("id")]
         public int Id { get; set; }
 
         [ForeignKey("Question")]

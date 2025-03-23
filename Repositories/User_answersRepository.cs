@@ -5,7 +5,7 @@ using AmadeusAPI.Models;
 
 namespace AmadeusAPI.Models;
 
-    public class User_answersRepository : IUserRepository
+    public class User_answersRepository : IUser_answers
     {
         private readonly AmadeusAPIDbContext _context;
 
