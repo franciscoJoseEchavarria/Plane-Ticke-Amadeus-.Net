@@ -8,22 +8,22 @@ namespace AmadeusAPI.Controller;
     [ApiController]
     public class User_answersController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IUser_answersService _userService;
 
-        public User_answersController(IUserService userService)
+        public User_answersController(IUser_answersService userService)
         {
             _userService = userService;
         }
 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<User_answers>>> GetUsers()
         {
             return Ok(await _userService.GetUsers());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<User_answers>> GetUser(int id)
         {
             var user = await _userService.GetUser(id);
             if (user == null)
@@ -35,14 +35,14 @@ namespace AmadeusAPI.Controller;
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> AddUser(User user)
+        public async Task<ActionResult> AddUser(User_answers user)
         {
             await _userService.AddUser(user);
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<User>> UpdateUser(int id, User user)
+        public async Task<IActionResult> UpdateUser(int id, User_answers user)
         {
             if (id != user.Id)
             {
@@ -55,7 +55,7 @@ namespace AmadeusAPI.Controller;
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(int id)
         {
             var user = await _userService.DeleteUser(id);
             if (user == null)

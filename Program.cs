@@ -21,7 +21,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 
-builder.Services.AddScoped<IUserRepository, User_answersRepository>();
+builder.Services.AddScoped<IUser_answersRepository, User_answersRepository>();
+builder.Services.AddScoped<IUser_answersService, User_answersService>();
 
 builder.Services.AddScoped<ICityRepository, CityRepository>();
 builder.Services.AddScoped<ICityService, CityService>();

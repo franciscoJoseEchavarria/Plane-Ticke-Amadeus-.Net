@@ -6,13 +6,13 @@ using AmadeusAPI.Models;
 
 namespace AmadeusAPI.Interfaces
 {
-    public interface IUser_answers
+    public interface IUser_answersRepository
     {
 
-        Task<User_answers> GetUser(int id);
-        Task<IEnumerable<User_answers>> GetUsers();
-        Task<User_answers> AddUser(User user);
-        Task<User_answers> UpdateUser(User user);
+        Task<User_answers> GetUser_answer(int id);
+        Task<IEnumerable<User_answers>> GetUser_answer();
+        Task AddUser(User_answers user);
+        Task UpdateUser(User_answers user);
         Task<User_answers?> DeleteUser(int id);
 
         
