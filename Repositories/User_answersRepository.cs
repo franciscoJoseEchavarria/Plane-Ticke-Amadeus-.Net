@@ -16,12 +16,20 @@ namespace AmadeusAPI.Models;
 
         public async Task<User_answers> GetUser_answer(int id)
         {
-            var user = await _context.User_answers.FindAsync(id);
-            if (user == null)
+            var userAnswer = await _context.User_answers.FindAsync(id);
+          
+            if (userAnswer == null)
             {
                 throw new KeyNotFoundException($"User with id {id} not found.");
             }
-            return user;
+            return userAnswer;
+        }
+
+        public async Task<IEnumerable<User_answers>> GetUserAnswersByUserId(int userId)
+        {
+            return await _context.User_answers
+                        .Where(ua => ua.User_id == userId)
+                        .ToListAsync();
         }
 
         public async Task<IEnumerable<User_answers>> GetUser_answer()

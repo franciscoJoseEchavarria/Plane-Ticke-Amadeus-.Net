@@ -34,6 +34,12 @@ namespace AmadeusAPI.Controller;
             return Ok(user);
         }
 
+        [HttpGet("userAnswers/{userId}")]
+        public async Task<ActionResult<IEnumerable<User_answers>>> GetUserAnswersByUserId(int userId)
+        {
+            return Ok(await _userService.GetUserAnswersByUserId(userId));
+        }
+
         [HttpPost]
         public async Task<ActionResult> AddUser(User_answers user)
         {

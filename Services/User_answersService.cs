@@ -12,6 +12,18 @@ namespace AmadeusAPI.Services;
             _user_answersRepository = user_answersRepository;
         }
 
+        public async Task<IEnumerable<User_answers>> GetUserAnswersByUserId(int userId)
+        {
+            try
+            {
+                return await _user_answersRepository.GetUserAnswersByUserId(userId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("no users found", ex);
+            }
+        }
+
         public async Task<IEnumerable<User_answers>> GetUsers()
     {
         try

@@ -14,5 +14,6 @@ namespace AmadeusAPI.Interfaces
         Task  AddUser(User_answers user);
         Task  UpdateUser(User_answers user);
         Task<User_answers> DeleteUser(int id);
+        Task<IEnumerable<User_answers>> GetUserAnswersByUserId(int userId);
     }
 }

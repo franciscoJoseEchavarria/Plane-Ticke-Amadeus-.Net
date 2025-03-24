@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace AmadeusAPI.Models;
 
@@ -9,4 +10,9 @@ namespace AmadeusAPI.Models;
         public string? Full_name { get; set; }
         [Required]
         public string? Email { get; set; }
+        [JsonIgnore]
+        public ICollection<User_answers> UserAnswers { get; set; }
+
+
+
     }
