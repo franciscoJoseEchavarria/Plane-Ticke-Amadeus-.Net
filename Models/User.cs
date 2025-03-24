@@ -11,7 +11,7 @@ namespace AmadeusAPI.Models;
         [Required]
         public string? Email { get; set; }
         [JsonIgnore]
-        public ICollection<User_answers> UserAnswers { get; set; }
+        public ICollection<User_answers>? UserAnswers { get; set; }
 
 
 
