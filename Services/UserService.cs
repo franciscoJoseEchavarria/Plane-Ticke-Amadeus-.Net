@@ -22,7 +22,7 @@ namespace  AmadeusAPI.Services;
     }
 
 
-    public async Task <User> GetUser(string email)
+    public async Task <User> GetUserByEmail(string email)
     {
         try
         {
@@ -34,10 +34,6 @@ namespace  AmadeusAPI.Services;
             return null;
         }
         
-        catch (Exception ex)
-        {
-            throw new Exception("user not found", ex);
-        }
     }
     
     public async Task<User> GetUser(int id)

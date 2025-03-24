@@ -57,13 +57,31 @@ namespace AmadeusAPI.Controller{
             return IsValidEmailFormat(email) && HasValidMxRecords(email);
         }
 
+        [HttpGet("GetEmail/{email}")]
+        public async Task<ActionResult<User>> GetUserByEmail(string email)
+        {
+            var user = await _userService.GetUserByEmail(email);
+            if (user == null)
+            {
+                var errorResponse = new MistakeResponse(
+                    404, 
+                    "Usuario no encontrado.", 
+                    "El usuario con el correo proporcionado no existe."
+                );
+                return NotFound(errorResponse);
+            }
+
+            return Ok(user);
+        }
+
+
         [HttpGet]
         public async Task<IEnumerable<User>> GetUsers()
         {
             return await _userService.GetUsers();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetById{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
             var user = await _userService.GetUser(id);
@@ -94,7 +112,7 @@ namespace AmadeusAPI.Controller{
                 return BadRequest(errorResponse);
             }
             // Verificar duplicidad: se asume que el servicio o repositorio tiene un método GetUserByEmail
-            var existingUser = await _userService.GetUser(user.Email);
+            var existingUser = await _userService.GetUserByEmail(user.Email);
             if (existingUser != null)
             {
                 var errorResponse = new MistakeResponse(
