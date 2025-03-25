@@ -5,7 +5,7 @@ using AmadeusAPI.Models;
 
 namespace AmadeusAPI.Models;
 
-    public class User_answersRepository : IUserRepository
+    public class User_answersRepository : IUser_answersRepository
     {
         private readonly AmadeusAPIDbContext _context;
 
@@ -14,44 +14,53 @@ namespace AmadeusAPI.Models;
             _context = context;
         }
 
-        public async Task<User> GetUser(int id)
+        public async Task<User_answers> GetUser_answer(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var userAnswer = await _context.User_answers.FindAsync(id);
+          
+            if (userAnswer == null)
             {
                 throw new KeyNotFoundException($"User with id {id} not found.");
             }
-            return user;
+            return userAnswer;
         }
 
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<IEnumerable<User_answers>> GetUserAnswersByUserId(int userId)
         {
-            return await _context.Users.ToListAsync();
+            return await _context.User_answers
+                        .Where(ua => ua.User_id == userId)
+                        .ToListAsync();
         }
 
-        public async Task<User> AddUser(User user)
+        public async Task<IEnumerable<User_answers>> GetUser_answer()
         {
-            _context.Users.Add(user);
+            return await _context.User_answers.ToListAsync();
+        }
+
+
+
+        public async Task  AddUser(User_answers user)
+        {
+            _context.User_answers.Add(user);
             await _context.SaveChangesAsync();
-            return user;
         }
 
-        public async Task<User> UpdateUser(User user)
+        public async Task  UpdateUser(User_answers user)
         {
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Update(user).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-            return user;
+    
         }
 
-        public async Task<User?> DeleteUser(int id)
+        public async Task<User_answers?> DeleteUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.User_answers.FindAsync(id);
             if (user == null)
             {
                 return null;
             }
 
-            _context.Users.Remove(user);
+            _context.User_answers.Remove(user);
             await _context.SaveChangesAsync();
             return user;
         }

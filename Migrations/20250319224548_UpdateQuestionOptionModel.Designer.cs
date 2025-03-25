@@ -2,6 +2,7 @@
 using AmadeusAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AmadeusAPI.Migrations
 {
     [DbContext(typeof(AmadeusAPIDbContext))]
-    partial class AmadeusAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250319224548_UpdateQuestionOptionModel")]
+    partial class UpdateQuestionOptionModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +33,6 @@ namespace AmadeusAPI.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CityHash")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("CityName")
@@ -38,7 +40,6 @@ namespace AmadeusAPI.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Continent")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Country")
@@ -50,11 +51,9 @@ namespace AmadeusAPI.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Language")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("UnmissablePlace")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -120,9 +119,11 @@ namespace AmadeusAPI.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("QuestionId")
@@ -130,6 +131,7 @@ namespace AmadeusAPI.Migrations
                         .HasColumnName("question_id");
 
                     b.Property<string>("Text")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -167,23 +169,19 @@ namespace AmadeusAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.PrimitiveCollection<string[]>("Answers")
-                        .IsRequired()
-                        .HasColumnType("text[]");
-
                     b.Property<int>("Date")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("Question_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Question_option_id")
                         .HasColumnType("integer");
 
                     b.Property<int>("User_id")
-                        .HasColumnType("integer")
-                        .HasColumnName("user_id");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("User_answers");
                 });
@@ -199,23 +197,9 @@ namespace AmadeusAPI.Migrations
                     b.Navigation("Question");
                 });
 
-            modelBuilder.Entity("AmadeusAPI.Models.User_answers", b =>
-                {
-                    b.HasOne("AmadeusAPI.Models.User", "User")
-                        .WithMany("UserAnswers")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("AmadeusAPI.Models.Question", b =>
                 {
                     b.Navigation("Options");
-                });
-
-            modelBuilder.Entity("AmadeusAPI.Models.User", b =>
-                {
-                    b.Navigation("UserAnswers");
                 });
 #pragma warning restore 612, 618
         }

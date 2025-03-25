@@ -1,22 +1,34 @@
 using AmadeusAPI.Interfaces;
 using AmadeusAPI.Models;
 
-namespace AmadeusAPI.services;
+namespace AmadeusAPI.Services;
 
-    public class User_answersService : IUserService
+    public class User_answersService:IUser_answersService
     {
-        private readonly User_answersRepository _user_answersRepository;
+        private readonly IUser_answersRepository _user_answersRepository;
 
-        public User_answersService(User_answersRepository user_answersRepository)
+        public User_answersService(IUser_answersRepository user_answersRepository)
         {
             _user_answersRepository = user_answersRepository;
         }
 
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<IEnumerable<User_answers>> GetUserAnswersByUserId(int userId)
+        {
+            try
+            {
+                return await _user_answersRepository.GetUserAnswersByUserId(userId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("no users found", ex);
+            }
+        }
+
+        public async Task<IEnumerable<User_answers>> GetUsers()
     {
         try
         {
-            return await _user_answersRepository.GetUsers();
+            return await _user_answersRepository.GetUser_answer();
         }
         catch (Exception ex)
         {
@@ -24,11 +36,11 @@ namespace AmadeusAPI.services;
         }
     }
     
-    public async Task<User> GetUser(int id)
+    public async Task<User_answers> GetUser(int id)
     {
         try
         {
-            return await _user_answersRepository.GetUser(id);
+            return await _user_answersRepository.GetUser_answer(id);
         }
         catch (Exception ex)
         {
@@ -36,11 +48,11 @@ namespace AmadeusAPI.services;
         }
     }
 
-    public async Task<User> AddUser(User user)
+    public async Task AddUser(User_answers user)
     {
         try
         {
-            return await _user_answersRepository.AddUser(user);
+            await _user_answersRepository.AddUser(user);
         }
         catch (Exception ex)
         {
@@ -48,11 +60,11 @@ namespace AmadeusAPI.services;
         }
     }
 
-    public async Task<User> UpdateUser(User user)
+    public async Task  UpdateUser(User_answers user)
     {
         try
         {
-            return await _user_answersRepository.UpdateUser(user);
+             await _user_answersRepository.UpdateUser(user);
         }
         catch (Exception ex)
         {
@@ -60,7 +72,7 @@ namespace AmadeusAPI.services;
         }
     }
 
-    public async Task<User> DeleteUser(int id)
+    public async Task<User_answers> DeleteUser(int id)
     {
         try
         {

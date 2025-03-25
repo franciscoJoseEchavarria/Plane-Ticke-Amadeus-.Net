@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using AmadeusAPI.Interfaces;
 using AmadeusAPI.Models;
-using Microsoft.AspNetCore.Authorization;
-
 
 namespace AmadeusAPI.Controller
 {
@@ -13,12 +11,10 @@ namespace AmadeusAPI.Controller
         public class CityController : ControllerBase
     {
         private readonly ICityService _cityService;
-
         public CityController(ICityService cityService)
         {
             _cityService = cityService;
         }
-    
 
         [HttpGet]
         public async Task<IEnumerable<CityModel>> GetCityAlluser()

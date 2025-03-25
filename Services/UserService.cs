@@ -1,16 +1,13 @@
-using AmadeusAPI.Models;
-using AmadeusAPI.Repositories;
 using AmadeusAPI.Interfaces;
-
-namespace  AmadeusAPI.services;
-public class UserService : IUserService
-{
-    private readonly IUserRepository _userRepository;
-
-    public UserService(IUserRepository userRepository)
+using AmadeusAPI.Models;
+namespace  AmadeusAPI.Services;
+    public class UserService:IUserService
     {
-        _userRepository = userRepository;
-    }
+        private readonly IUserRepository _userRepository;
+        public UserService(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;       
+        }
 
     public async Task<IEnumerable<User>> GetUsers()
     {
@@ -23,12 +20,32 @@ public class UserService : IUserService
             throw new Exception("no users found", ex);
         }
     }
+
+
+    public async Task <User> GetUserByEmail(string email)
+    {
+        try
+        {
+            return await _userRepository.GetUser(email);
+        }
+
+        catch (KeyNotFoundException)
+        {
+            return null;
+        }
+        
+    }
     
     public async Task<User> GetUser(int id)
     {
         try
         {
             return await _userRepository.GetUser(id);
+        }
+
+        catch (KeyNotFoundException)
+        {
+            return null;
         }
         catch (Exception ex)
         {
@@ -76,9 +93,4 @@ public class UserService : IUserService
             throw new Exception("user not deleted", ex);
         }
     }
-
-
-
-
-
-    }
+}

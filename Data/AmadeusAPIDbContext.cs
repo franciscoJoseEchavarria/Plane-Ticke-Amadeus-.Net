@@ -14,5 +14,6 @@ namespace AmadeusAPI.Data
         public DbSet<Question> Question { get; set; }
         public DbSet<QuestionOption> QuestionOption { get; set; }
         public DbSet<Destination> Destinations { get; set; }
+
     }
 }
