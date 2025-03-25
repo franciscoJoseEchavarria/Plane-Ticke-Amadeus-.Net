@@ -61,30 +61,5 @@ namespace AmadeusAPI.Services
         return (new JwtSecurityTokenHandler().WriteToken(token), expiration);
     }
 
-    // This method needs to work with your User model, not IdentityUser
-    public async Task<IdentityResult> Register(string email, string fullName)
-    {
-        if (string.IsNullOrEmpty(email))
-        {
-            return IdentityResult.Failed(new IdentityError { Description = "Email is required." });
-        }
-
-        var user = new User
-        {
-            Email = email,
-            Full_name = fullName
-        };
-
-        try 
-        {
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
-            return IdentityResult.Success;
-        }
-        catch
-        {
-            return IdentityResult.Failed(new IdentityError { Description = "Error creating user." });
-        }
-    }
 }
 }

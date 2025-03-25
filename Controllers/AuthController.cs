@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using AmadeusAPI.Models;
 using AmadeusAPI.Services;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 [Route("api/auth")]
 [ApiController]
@@ -15,20 +15,6 @@ public class AuthController : ControllerBase
     {
         _authService = authService;
     }
-    [HttpPost("register")]
-    public IActionResult Register([FromBody] RegisterRequest request)
-    {
-        var user = new IdentityUser
-        {
-            UserName = request.Usuario
-        };
-        var result = _authService.Register(request.Usuario, request.email);
-        if (result.Succeeded)
-        {
-            return Ok();
-        }
-        return BadRequest(result.Errors);
-    }
 
     [HttpPost("login")]
 public async Task<IActionResult> Login([FromBody] LoginRequest request)
@@ -37,6 +23,9 @@ public async Task<IActionResult> Login([FromBody] LoginRequest request)
     
     if (success)
     {
+        // Store token in session
+        HttpContext.Session.SetString("tokenSession", token);
+
         return Ok(new AuthResponse
         {
             Token = token,
@@ -46,11 +35,16 @@ public async Task<IActionResult> Login([FromBody] LoginRequest request)
     return Unauthorized();
 }
 
-public class LoginRequest
+[HttpGet("getToken")]
+public IActionResult GetToken()
 {
-    public string Email { get; set; }
+    var token = HttpContext.Session.GetString("tokenSession");
+    if (string.IsNullOrEmpty(token))
+    {
+        return NotFound("No token found in session");
+    }
+    return Ok(new { token });
 }
-
 
     [HttpGet("protected")]
     [Authorize]
@@ -60,13 +54,4 @@ public class LoginRequest
         return Ok(new { message = "This is a protected endpoint." });
     }
 }
-public class RegisterRequest
-{
-    public string Usuario { get; set; }
-    public string Password { get; set; }
-}
-public class LoginRequest
-{
-    public string Usuario { get; set; }
-    public string Password { get; set; }
-}
+
