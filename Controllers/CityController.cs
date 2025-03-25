@@ -21,7 +21,7 @@ namespace AmadeusAPI.Controller
         {
             return await _cityService.GetCityAlluser();
         }
-
+        //preguntar al profe que en esta parte aun con el tocken no me deja acceder a la informacion
         [HttpGet("{id}")]
         public async Task<ActionResult<CityModel>> GetCityById(int id)
         {
