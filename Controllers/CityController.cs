@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace AmadeusAPI.Controller
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
         public class CityController : ControllerBase
     {
@@ -18,7 +19,7 @@ namespace AmadeusAPI.Controller
         {
             _cityService = cityService;
         }
-      
+    
 
         [HttpGet("protectedpath")]
         public async Task<IEnumerable<CityModel>> GetCityAlluser()

@@ -3,7 +3,7 @@ using AmadeusAPI.Models;
 
 namespace AmadeusAPI.services;
 
-    public class User_answersService
+    public class User_answersService : IUserService
     {
         private readonly User_answersRepository _user_answersRepository;
 

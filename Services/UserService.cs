@@ -1,15 +1,16 @@
 using AmadeusAPI.Models;
 using AmadeusAPI.Repositories;
+using AmadeusAPI.Interfaces;
 
 namespace  AmadeusAPI.services;
-    public class UserService
-    {
-        private readonly   UserRepository _userRepository;
+public class UserService : IUserService
+{
+    private readonly IUserRepository _userRepository;
 
-        public UserService(UserRepository userRepository)
-        {
-            _userRepository = userRepository;
-        }
+    public UserService(IUserRepository userRepository)
+    {
+        _userRepository = userRepository;
+    }
 
     public async Task<IEnumerable<User>> GetUsers()
     {
