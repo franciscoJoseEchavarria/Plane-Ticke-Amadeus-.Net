@@ -8,6 +8,8 @@ using AmadeusAPI.Models;
 
 namespace AmadeusAPI.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class AdminController: ControllerBase
     {
         private readonly IAdminService _adminService;
@@ -22,6 +24,8 @@ namespace AmadeusAPI.Controllers
         {
             return await _adminService.GetAdminAll();
         }
+
+
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Admin>> GetAdminById(int id)
