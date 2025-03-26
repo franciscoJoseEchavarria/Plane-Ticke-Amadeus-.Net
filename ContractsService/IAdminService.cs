@@ -15,5 +15,6 @@ namespace AmadeusAPI.Interfaces
         Task<Admin> AddAdmin(Admin admin);
         Task<Admin> UpdateAdmin(Admin admin);
         Task<Admin> DeleteAdmin(int id);
+       
     }
 }

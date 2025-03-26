@@ -18,7 +18,7 @@ namespace AmadeusAPI.Repositories;
             _context = context;
         }
 
-        async Task<Admin> IAdminRepository.GetAdminById(int id)
+        public async Task<Admin> GetAdminById(int id)
         {
            var admin = await _context.Admin.FindAsync(id);
            if (admin == null)
@@ -28,24 +28,34 @@ namespace AmadeusAPI.Repositories;
            return admin;
         }
 
-        async Task<IEnumerable<Admin>> IAdminRepository.GetAdminAll()
+        public async Task<Admin> GetAdminByEmail(string email)
+        {
+            var admin = await _context.Admin.FirstOrDefaultAsync(a => a.Email == email);
+            if (admin == null)
+            {
+                throw new KeyNotFoundException($"Admin with email {email} not found.");
+            }
+            return admin;
+        }
+        
+        public async Task<IEnumerable<Admin>> GetAdminAll()
         {
             return await _context.Admin.ToListAsync();
         }
 
-        async Task IAdminRepository.AddAdmin(Admin admin)
+        public async Task AddAdmin(Admin admin)
         {
             _context.Admin.Add(admin);
             await _context.SaveChangesAsync();
         }
 
-        async Task IAdminRepository.UpdateAdmin(Admin admin)
+        public async Task UpdateAdmin(Admin admin)
         {
             _context.Update(admin).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
 
-        async Task<Admin?> IAdminRepository.DeleteAdmin(int id)
+        public async Task<Admin?> DeleteAdmin(int id)
         {
             var admin = await _context.Admin.FindAsync(id);
             if (admin == null)
@@ -56,9 +66,5 @@ namespace AmadeusAPI.Repositories;
             await _context.SaveChangesAsync();
             return admin;
         }
-
-
-
-
 
     }

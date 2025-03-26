@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AmadeusAPI.Interfaces;
 using AmadeusAPI.Models;
+using go4it_amadeus.Models.DTO;
 
 namespace AmadeusAPI.Controllers
 {
@@ -13,11 +14,14 @@ namespace AmadeusAPI.Controllers
     public class AdminController: ControllerBase
     {
         private readonly IAdminService _adminService;
+        private readonly IAuthAdminService _authAdminService;
 
-        public AdminController(IAdminService adminService)
+        public AdminController(IAdminService adminService, IAuthAdminService authAdminService)
         {
             _adminService = adminService;
+            _authAdminService = authAdminService;
         }
+
 
         [HttpGet]
         public async Task<IEnumerable<Admin>> GetAdminAll()
@@ -56,6 +60,19 @@ namespace AmadeusAPI.Controllers
             await _adminService.UpdateAdmin(admin);
             return NoContent();
         }
+
+       [HttpPost("login")]
+       public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+
+       {
+         var result = await _authAdminService.AuthenticateAsync(loginDto.Email, loginDto.Password);
+        if (!result.Success)
+        {
+            return BadRequest(result.ErrorMessage);
+        }
+        return Ok(new { token = result.Token, expiration = result.Expiration });
+       }
+
 
     }
 }
