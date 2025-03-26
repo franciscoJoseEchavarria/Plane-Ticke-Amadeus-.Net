@@ -8,6 +8,8 @@ namespace AmadeusAPI.Data
         public AmadeusAPIDbContext(DbContextOptions<AmadeusAPIDbContext> options) : base(options)
         {
         }
+
+        public DbSet<Admin> Admin { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<User_answers> User_answers { get; set;}
         public DbSet<CityModel> City { get; set; }

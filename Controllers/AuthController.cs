@@ -11,47 +11,56 @@ public class AuthController : ControllerBase
 {
     private readonly AuthService _authService;
 
+    // Constructor que inyecta el servicio de autenticación
     public AuthController(AuthService authService)
     {
         _authService = authService;
     }
 
+    // Endpoint para el inicio de sesión
     [HttpPost("login")]
-public async Task<IActionResult> Login([FromBody] LoginRequest request)
-{
-    var (success, token, expiration) = await _authService.ValidateUserAndGenerateToken(request.Email);
-    
-    if (success)
+    public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-        // Store token in session
-        HttpContext.Session.SetString("tokenSession", token);
-
-        return Ok(new AuthResponse
+        // Valida el usuario y genera un token JWT
+        var (success, token, expiration) = await _authService.ValidateUserAndGenerateToken(request.Email);
+        
+        if (success)
         {
-            Token = token,
-            Expiration = expiration
-        });
-    }
-    return Unauthorized();
-}
+            // Almacena el token en la sesión
+            HttpContext.Session.SetString("tokenSession", token);
 
-[HttpGet("getToken")]
-public IActionResult GetToken()
-{
-    var token = HttpContext.Session.GetString("tokenSession");
-    if (string.IsNullOrEmpty(token))
+            // Devuelve la respuesta de autenticación con el token y la fecha de expiración
+            return Ok(new AuthResponse
+            {
+                Token = token,
+                Expiration = expiration
+            });
+        }
+        // Si la validación falla, devuelve una respuesta no autorizada
+        return Unauthorized();
+    }
+
+    // Endpoint para obtener el token almacenado en la sesión
+    [HttpGet("getToken")]
+    public IActionResult GetToken()
     {
-        return NotFound("No token found in session");
+        // Obtiene el token de la sesión
+        var token = HttpContext.Session.GetString("tokenSession");
+        if (string.IsNullOrEmpty(token))
+        {
+            // Si no se encuentra el token, devuelve una respuesta 404
+            return NotFound("No token found in session");
+        }
+        // Devuelve el token encontrado en la sesión
+        return Ok(new { token });
     }
-    return Ok(new { token });
-}
 
+    // Endpoint protegido que requiere autenticación
     [HttpGet("protected")]
     [Authorize]
     public IActionResult Protected()
     {
-
+        // Devuelve un mensaje indicando que el endpoint está protegido
         return Ok(new { message = "This is a protected endpoint." });
     }
 }
-

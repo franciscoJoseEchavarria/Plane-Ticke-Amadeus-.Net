@@ -51,7 +51,6 @@ namespace AmadeusAPI.Controller{
                 return false;
             }
         }
-
              private bool IsValidEmail(string email)
         {
             return IsValidEmailFormat(email) && HasValidMxRecords(email);
