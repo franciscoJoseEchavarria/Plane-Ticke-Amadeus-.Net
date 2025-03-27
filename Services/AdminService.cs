@@ -28,6 +28,7 @@ namespace AmadeusAPI.Services
 
         public async Task<Admin> AddAdmin(Admin admin)
         {
+            admin.Password = BCrypt.Net.BCrypt.HashPassword(admin.Password);
             await _adminRepository.AddAdmin(admin);
             return admin;
         }

@@ -23,6 +23,7 @@ public class AuthController : ControllerBase
     {
         // Valida el usuario y genera un token JWT
         var (success, token, expiration) = await _authService.ValidateUserAndGenerateToken(request.Email);
+        var formattedExpiration = expiration.ToString("yyyy-MM-dd HH:mm:ss");
         
         if (success)
         {
@@ -33,7 +34,8 @@ public class AuthController : ControllerBase
             return Ok(new AuthResponse
             {
                 Token = token,
-                Expiration = expiration
+                Expiration = formattedExpiration
+                
             });
         }
         // Si la validación falla, devuelve una respuesta no autorizada

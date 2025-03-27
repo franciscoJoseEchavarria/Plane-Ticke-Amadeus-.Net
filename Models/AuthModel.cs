@@ -9,7 +9,7 @@ namespace AmadeusAPI.Models
         public string Token { get; set; }
 
         // Fecha y hora de expiración del token.
-        public DateTime Expiration { get; set; }
+        public string Expiration { get; set; }
     }
 
     // Esta clase representa la solicitud de inicio de sesión que el cliente envía al servidor.

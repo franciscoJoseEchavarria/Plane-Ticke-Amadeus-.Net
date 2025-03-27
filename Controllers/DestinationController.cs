@@ -3,6 +3,7 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using AmadeusAPI.Models;
 using AmadeusAPI.Interfaces;
 using AmadeusAPI.Data;
@@ -33,6 +34,7 @@ namespace AmadeusAPI.Controllers
 
         
         [HttpPost("hash")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> HashArray([FromBody] string[] array)
         {
             var hash = GetHashedArray(array);

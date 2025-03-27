@@ -2,12 +2,14 @@ using AmadeusAPI.Interfaces;
 using AmadeusAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using DnsClient;
+using Microsoft.AspNetCore.Authorization;
 using System.Net.Mail;
 
 
 namespace AmadeusAPI.Controller{
 
     [Route("api/[controller]")]
+    [Authorize(Roles = "Admin")] // Solo Admin con token válido podrá acceder
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -55,6 +57,7 @@ namespace AmadeusAPI.Controller{
         {
             return IsValidEmailFormat(email) && HasValidMxRecords(email);
         }
+        
 
         [HttpGet("GetEmail/{email}")]
         public async Task<ActionResult<User>> GetUserByEmail(string email)
@@ -97,6 +100,7 @@ namespace AmadeusAPI.Controller{
             return Ok(user);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult<User>> AddUser(User user)
         {

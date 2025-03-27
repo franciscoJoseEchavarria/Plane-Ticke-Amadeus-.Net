@@ -1,6 +1,7 @@
 using AmadeusAPI.Interfaces;
 using AmadeusAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AmadeusAPI.Controller;
 
@@ -17,12 +18,14 @@ namespace AmadeusAPI.Controller;
 
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<User_answers>>> GetUsers()
         {
             return Ok(await _userService.GetUsers());
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<ActionResult<User_answers>> GetUser(int id)
         {
             var user = await _userService.GetUser(id);
@@ -35,6 +38,7 @@ namespace AmadeusAPI.Controller;
         }
 
         [HttpGet("userAnswers/{userId}")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<ActionResult<IEnumerable<User_answers>>> GetUserAnswersByUserId(int userId)
         {
             return Ok(await _userService.GetUserAnswersByUserId(userId));
@@ -48,6 +52,7 @@ namespace AmadeusAPI.Controller;
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateUser(int id, User_answers user)
         {
             if (id != user.Id)
@@ -61,6 +66,7 @@ namespace AmadeusAPI.Controller;
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             var user = await _userService.DeleteUser(id);
