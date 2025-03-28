@@ -2,6 +2,7 @@ using AmadeusAPI.Interfaces;
 using AmadeusAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using DnsClient;
+using Microsoft.AspNetCore.Authorization;
 using System.Net.Mail;
 
 
@@ -51,11 +52,11 @@ namespace AmadeusAPI.Controller{
                 return false;
             }
         }
-
              private bool IsValidEmail(string email)
         {
             return IsValidEmailFormat(email) && HasValidMxRecords(email);
         }
+        
 
         [HttpGet("GetEmail/{email}")]
         public async Task<ActionResult<User>> GetUserByEmail(string email)
@@ -98,6 +99,7 @@ namespace AmadeusAPI.Controller{
             return Ok(user);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult<User>> AddUser(User user)
         {
@@ -111,24 +113,20 @@ namespace AmadeusAPI.Controller{
                 );
                 return BadRequest(errorResponse);
             }
-            // Verificar duplicidad: se asume que el servicio o repositorio tiene un método GetUserByEmail
+            // Verificar si el usuario existe
             var existingUser = await _userService.GetUserByEmail(user.Email);
             if (existingUser != null)
             {
-                var errorResponse = new MistakeResponse(
-                    409, 
-                    "El correo ya se encuentra registrado.", 
-                    "Por favor, utilice otro correo."
-                );
-                return BadRequest(errorResponse);
-            } 
-            else if(existingUser == null)
-            {
-                await _userService.AddUser(user);
-                return CreatedAtAction("GetUser", new { id = user.Id }, user);
+                // Si el usuario existe, devolver éxito con el usuario existente
+                return Ok(new { 
+                    user = existingUser,
+                    message = "Usuario existente autenticado con éxito"
+                });
             }
 
-            return BadRequest("Unexpected error occurred.");
+            // Si el usuario no existe, crear uno nuevo
+            await _userService.AddUser(user);
+            return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
         [HttpPut("{id}")]

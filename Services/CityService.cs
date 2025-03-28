@@ -33,7 +33,7 @@ namespace  AmadeusAPI.Services;
         {
             await _cityRepository.UpdateCity(city);
         }
-
+        
         public async Task<CityModel> DeleteCity(int id)
         {
             return await _cityRepository.DeleteCity(id);

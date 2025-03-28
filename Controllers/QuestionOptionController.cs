@@ -1,6 +1,7 @@
 using AmadeusAPI.Interfaces;
 using AmadeusAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AmadeusAPI.Controllers
 {
@@ -16,6 +17,7 @@ namespace AmadeusAPI.Controllers
         }
 
         [HttpGet]
+        
         public async Task<ActionResult<IEnumerable<QuestionOption>>> GetAll()
         {
             var options = await _questionOptionRepository.GetAllAsync();
@@ -23,6 +25,7 @@ namespace AmadeusAPI.Controllers
         }
 
         [HttpGet("{id}")]
+
         public async Task<ActionResult<QuestionOption>> GetById(int id)
         {
             var option = await _questionOptionRepository.GetByIdAsync(id);
@@ -32,6 +35,7 @@ namespace AmadeusAPI.Controllers
         }
 
         [HttpGet("question/{questionId}")]
+        
         public async Task<ActionResult<IEnumerable<QuestionOption>>> GetByQuestionId(int questionId)
         {
             var options = await _questionOptionRepository.GetAllByQuestionIdAsync(questionId);
@@ -39,6 +43,7 @@ namespace AmadeusAPI.Controllers
         }
 
         [HttpPost]
+        
         public async Task<ActionResult> Create(QuestionOption option)
         {
             await _questionOptionRepository.AddAsync(option);
@@ -46,6 +51,7 @@ namespace AmadeusAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        
         public async Task<ActionResult> Update(int id, QuestionOption option)
         {
             if (id != option.Id)
@@ -56,6 +62,7 @@ namespace AmadeusAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        
         public async Task<ActionResult> Delete(int id)
         {
             await _questionOptionRepository.DeleteAsync(id);
