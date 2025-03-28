@@ -37,7 +37,7 @@ namespace AmadeusAPI.Controllers
         {
             var hash = GetHashedArray(array);
             (CityModel firstCity, CityModel secondCity) = await _destinationService.GetCitiesByHash(hash);
-            return Ok(new { firstCity, secondCity });
+            return Ok(new[] { firstCity, secondCity });
         }
     }
 }

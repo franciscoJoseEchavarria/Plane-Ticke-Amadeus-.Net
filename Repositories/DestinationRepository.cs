@@ -61,9 +61,17 @@ public class DestinationRepository : IDestinationRepository
             .Where(c => c.CityHash == hash)
             .ToListAsync();
 
-        if (cities.Count() != 2)
+        if (cities.Count() == 0)
         {
-            throw new Exception("There should be exactly two cities with the given hash.");
+            var defaultCity1 = await _context.City.FindAsync(39);
+            var defaultCity2 = await _context.City.FindAsync(40);
+
+            if (defaultCity1 == null || defaultCity2 == null)
+            {
+                throw new Exception("Default cities not found.");
+            }
+            
+            return (defaultCity1, defaultCity2);
         }
 
         return (cities[0], cities[1]);
