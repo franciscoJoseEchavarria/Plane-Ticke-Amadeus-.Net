@@ -34,7 +34,6 @@ namespace AmadeusAPI.Controllers
 
         
         [HttpPost("hash")]
-        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> HashArray([FromBody] string[] array)
         {
             var hash = GetHashedArray(array);
