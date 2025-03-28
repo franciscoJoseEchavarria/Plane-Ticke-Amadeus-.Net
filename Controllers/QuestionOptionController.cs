@@ -17,7 +17,7 @@ namespace AmadeusAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        
         public async Task<ActionResult<IEnumerable<QuestionOption>>> GetAll()
         {
             var options = await _questionOptionRepository.GetAllAsync();
@@ -25,7 +25,7 @@ namespace AmadeusAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "User,Admin")]
+
         public async Task<ActionResult<QuestionOption>> GetById(int id)
         {
             var option = await _questionOptionRepository.GetByIdAsync(id);
@@ -35,7 +35,7 @@ namespace AmadeusAPI.Controllers
         }
 
         [HttpGet("question/{questionId}")]
-        [Authorize(Roles = "User,Admin")]
+        
         public async Task<ActionResult<IEnumerable<QuestionOption>>> GetByQuestionId(int questionId)
         {
             var options = await _questionOptionRepository.GetAllByQuestionIdAsync(questionId);
@@ -43,7 +43,7 @@ namespace AmadeusAPI.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        
         public async Task<ActionResult> Create(QuestionOption option)
         {
             await _questionOptionRepository.AddAsync(option);
@@ -51,7 +51,7 @@ namespace AmadeusAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        
         public async Task<ActionResult> Update(int id, QuestionOption option)
         {
             if (id != option.Id)
@@ -62,7 +62,7 @@ namespace AmadeusAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        
         public async Task<ActionResult> Delete(int id)
         {
             await _questionOptionRepository.DeleteAsync(id);

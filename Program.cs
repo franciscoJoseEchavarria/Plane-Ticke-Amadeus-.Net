@@ -23,9 +23,10 @@ builder.Services.AddCors(options =>
         builder =>
         {
             builder
-                .AllowAnyOrigin()
+                .WithOrigins("http://localhost:5173") // Add your frontend URL
                 .AllowAnyMethod()
-                .AllowAnyHeader();
+                .AllowAnyHeader()
+                .AllowCredentials();
         });
 });
 
@@ -77,7 +78,7 @@ builder.Services.AddScoped<IQuestionOptionService, QuestionOptionService>();
 builder.Services.AddScoped<IDestinationRepository, DestinationRepository>();
 builder.Services.AddScoped<IDestinationService, DestinationService>();
 
-
+builder.Services.AddScoped<AuthAdminService>();
 
 builder.Services.AddEndpointsApiExplorer();
 

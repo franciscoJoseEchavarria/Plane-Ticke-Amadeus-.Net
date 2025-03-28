@@ -13,29 +13,35 @@ public class QuestionController : ControllerBase
     public QuestionController(IQuestionService service) { _service = service; }
     
     [HttpGet] 
-    [Authorize(Roles = "User,Admin")]
+    [AllowAnonymous] // Change this to allow anonymous access
     public async Task<IActionResult> GetAll()
-     => Ok(await _service.GetAllAsync());
+    {
+        try 
+        {
+            var questions = await _service.GetAllAsync();
+            return Ok(questions);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "Error fetching questions", error = ex.Message });
+        }
+    }
     
     [HttpGet("{id}")]
-    [Authorize(Roles = "User,Admin")]
      public async Task<IActionResult> Get(int id) 
      => Ok(await _service.GetByIdAsync(id));
     
     [HttpPost] 
-    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create([FromBody] Question question) 
     { await _service.AddAsync(question);
      return Ok(); }
     
     [HttpPut] 
-    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Update([FromBody] Question question)
      { await _service.UpdateAsync(question);
       return Ok(); }
     
     [HttpDelete("{id}")] 
-    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id) 
     { await _service.DeleteAsync(id); 
     return Ok(); }
