@@ -9,7 +9,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
-using go4it_amadeus.Services;
+using  go4it_amadeus.Services;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 var jwtSettings = builder.Configuration.GetSection("Jwt");
@@ -43,7 +45,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddScoped<AuthService>();
+
 
 builder.Services.AddControllers().AddJsonOptions(options =>
     {
@@ -75,7 +77,7 @@ builder.Services.AddScoped<IQuestionOptionService, QuestionOptionService>();
 builder.Services.AddScoped<IDestinationRepository, DestinationRepository>();
 builder.Services.AddScoped<IDestinationService, DestinationService>();
 
-builder.Services.AddScoped<IUserService, UserService>();
+
 
 builder.Services.AddEndpointsApiExplorer();
 

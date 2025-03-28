@@ -39,9 +39,14 @@ namespace AmadeusAPI.Services
             return admin;
         }
 
-        public async Task<Admin?> DeleteAdmin(int id)
+        public async Task<Admin> DeleteAdmin(int id)
         {
-            return await _adminRepository.DeleteAdmin(id);
+            var admin = await _adminRepository.DeleteAdmin(id);
+            if (admin == null)
+            {
+                throw new InvalidOperationException($"Admin with ID {id} could not be found or deleted.");
+            }
+            return admin;
         }
 
     }
