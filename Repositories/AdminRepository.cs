@@ -37,7 +37,7 @@ namespace AmadeusAPI.Repositories;
             }
             return admin;
         }
-        
+
         public async Task<IEnumerable<Admin>> GetAdminAll()
         {
             return await _context.Admin.ToListAsync();

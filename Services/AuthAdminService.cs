@@ -1,4 +1,3 @@
-
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -29,13 +28,13 @@ namespace go4it_amadeus.Services
         {
             // Busca al administrador por su correo electrónico
             var admin = await _adminRepository.GetAdminByEmail(email);
-            
+
             // Verifica si el administrador existe y si la contraseña es correcta
             if (admin == null || !BCrypt.Net.BCrypt.Verify(password, admin.Password))
             {
                 return new AdminAuthResult { Success = false, ErrorMessage = "Credenciales inválidas" };
             }
-            
+
             // Genera el token JWT y la fecha de expiración
             var (token, expiration) = GenerateToken(admin);
             return new AdminAuthResult { Success = true, Token = token, Expiration = expiration };
@@ -47,7 +46,7 @@ namespace go4it_amadeus.Services
             // Obtiene el tiempo de expiración del token desde la configuración
             int expirationMinutes = _configuration.GetValue<int>("Jwt:ExpiryInMinutes");
             var expiration = DateTime.UtcNow.AddMinutes(expirationMinutes);
-            
+
             // Crea la clave de seguridad y las credenciales de firma
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

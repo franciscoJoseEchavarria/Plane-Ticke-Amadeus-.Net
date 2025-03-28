@@ -13,7 +13,7 @@ namespace AmadeusAPI.Interfaces
         Task<Admin> GetAdminByEmail(string email);
         Task<IEnumerable<Admin>> GetAdminAll();
         Task AddAdmin(Admin admin);
-        
+
         Task UpdateAdmin(Admin admin);
         Task<Admin?> DeleteAdmin(int id);
     }
