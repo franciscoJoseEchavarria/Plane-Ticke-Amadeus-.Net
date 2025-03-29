@@ -67,4 +67,39 @@ namespace AmadeusAPI.Repositories;
             await _context.SaveChangesAsync();
             return user;
         }
+
+         public async Task<PagedResult<User>> GetPagedUsers(int page, int pageSize)
+    {
+        // Asegúrate de que page y pageSize tengan valores razonables
+        if (page < 1) page = 1;
+        if (pageSize < 1) pageSize = 10;
+
+        // Obtenemos la consulta base
+        var query = _context.Users.AsQueryable();
+
+        // Contamos cuántos usuarios hay en total
+        var totalItems = await query.CountAsync();
+
+        // Calculamos cuántas páginas hay
+        var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+        // Obtenemos solo los elementos de la página solicitada
+        var items = await query
+            .OrderBy(u => u.Id)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        // Retornamos el resultado paginado
+        return new PagedResult<User>
+        {
+            Items = items,
+            CurrentPage = page,
+            PageSize = pageSize,
+            TotalItems = totalItems,
+            TotalPages = totalPages
+        };
+    }
+
+
     }
