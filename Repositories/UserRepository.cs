@@ -94,10 +94,10 @@ namespace AmadeusAPI.Repositories;
         return new PagedResult<User>
         {
             Items = items,
-            CurrentPage = page,
-            PageSize = pageSize,
-            TotalItems = totalItems,
-            TotalPages = totalPages
+            currentPage = page,
+            pageSize = pageSize,
+            totalItems = totalItems,
+            totalPages = totalPages
         };
     }
 
