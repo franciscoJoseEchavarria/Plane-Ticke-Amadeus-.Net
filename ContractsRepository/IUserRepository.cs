@@ -12,5 +12,6 @@ namespace AmadeusAPI.Interfaces
         Task<User> UpdateUser(User user);
         Task<User?> DeleteUser(int id);
         Task<User> GetUser(String email);
+        Task<PagedResult<User>> GetPagedUsers(int page, int pageSize);
     }
 }

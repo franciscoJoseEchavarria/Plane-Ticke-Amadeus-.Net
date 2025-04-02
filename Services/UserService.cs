@@ -93,4 +93,9 @@ namespace  AmadeusAPI.Services;
             throw new Exception("user not deleted", ex);
         }
     }
+
+        public async Task<PagedResult<User>> GetPagedUsers(int page, int pageSize)
+        {
+            return await _userRepository.GetPagedUsers(page, pageSize);
+        }
 }

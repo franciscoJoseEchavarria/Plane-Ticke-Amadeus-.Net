@@ -12,7 +12,7 @@ namespace AmadeusAPI.Controller{
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserService _userService;
+       private readonly IUserService _userService;
        private readonly ILookupClient _dnsClient;
 
 
@@ -153,6 +153,14 @@ namespace AmadeusAPI.Controller{
 
             return Ok(user);
         }
+
+        [HttpGet("paged")]
+        public async Task<ActionResult<PagedResult<User>>> GetPagedUsers(int page = 1, int pageSize = 10)
+        {
+            var result = await _userService.GetPagedUsers(page, pageSize);
+            return Ok(result);
+        }
     }
+            
 }
 
