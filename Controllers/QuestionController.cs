@@ -35,6 +35,25 @@ public class QuestionController : ControllerBase
     public async Task<IActionResult> Create([FromBody] Question question) 
     { await _service.AddAsync(question);
      return Ok(); }
+
+    [HttpPut("{id}")]
+public async Task<IActionResult> Update(int id, [FromBody] Question question)
+{
+    if (id != question.Id)
+    {
+        return BadRequest(new { message = "ID mismatch" });
+    }
+
+    try
+    {
+        await _service.UpdateAsync(question);
+        return Ok(question);
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, new { message = "Error updating question", error = ex.Message });
+    }
+}
     
     [HttpPut] 
     public async Task<IActionResult> Update([FromBody] Question question)
