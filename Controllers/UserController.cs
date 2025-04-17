@@ -82,7 +82,7 @@ namespace AmadeusAPI.Controller{
             return await _userService.GetUsers();
         }
 
-        [HttpGet("GetById{id}")]
+        [HttpGet("GetById/{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
             var user = await _userService.GetUser(id);
