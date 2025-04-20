@@ -1,0 +1,18 @@
+# Archivos y carpetas de desarrollo
+.vs/                       # Excluye archivos de configuración de Visual Studio
+.vscode/                   # Excluye archivos de configuración de VS Code
+bin/                       # Excluye binarios compilados localmente
+obj/                       # Excluye archivos de objeto intermedios
+
+# Archivos Git
+.git/                      # Excluye el repositorio Git completo
+.gitignore                 # Excluye la configuración de Git
+.gitattributes             # Excluye la configuración de Git
+
+# Archivos de configuración local
+appsettings.Development.json  # Excluye configuraciones específicas de desarrollo
+
+# Archivos y carpetas temporales
+**/node_modules/           # Excluye paquetes NPM (si los hubiera)
+**/.DS_Store               # Excluye metadatos de macOS
+**/Thumbs.db               # Excluye miniaturas de Windows
